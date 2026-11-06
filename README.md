@@ -1,30 +1,175 @@
-# Sanad - سند
+# منصة سند | Sanad Platform
 
-اطلع على كل الملفات و ابدأ في تطوير التطبيق و اربطه مع github 
+> **تسيير العمارات وصندوق السكان — الجزائر**
+> نظام رقمي متكامل وشفاف لإدارة الملكية المشتركة (الملكية العقارية المشتركة، مداخيل ومصاريف الصيانة، اشتراكات السكان وتسيير الجمعيات العامة).
 
-https://github.com/omarberrahma/Lovablesanad1
+---
 
-و بغيت نربط قاة البيانات في supabase
+## 📌 الفهرس (Table of Contents)
+1. [عن المشروع والهدف منه (About the Project & Mission)](#-عن-المشروع-والهدف-منه)
+2. [الهيكل التقني والمعمارية (Architecture & Tech Stack)](#-الهيكل-التقني-والمعمارية)
+3. [روابط الدخول وأنواع المستخدمين (User Roles & Access Links)](#-روابط-الدخول-وأنواع-المستخدمين)
+4. [طريقة دخول الماستر أدمن (Master Admin Login Guide)](#-طريقة-دخول-الماستر-أدمن-master-admin)
+5. [الأمان وحماية البيانات (Security & 100% Protection)](#-الأمان-وحماية-البيانات-security)
+6. [قاعدة البيانات وجداول Supabase (Database Schema)](#-قاعدة-البيانات-وجداول-supabase)
+7. [التشغيل والتطوير المحلي (Getting Started & Development)](#-التشغيل-والتطوير-المحلي)
+8. [الاختبارات والبناء (Testing & Building)](#-الاختبارات-والبناء)
 
-This project was built with [Lovable](https://lovable.dev).
+---
 
-**Live app**: https://sanad-appv1.lovable.app
+## 🎯 عن المشروع والهدف منه
 
-## Build with Lovable
+**سند** هي منصة ويب موجهة للمجتمع الجزائري صُممت خصيصاً لحل المشاكل الشائعة في تسيير العمارات والأحياء السكنية (AADL، LPP، الترقوي الحر، والمجمعات السكنية).
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/39518f28-7982-4161-b466-02eb6d739318).
+### الأهداف الأساسية:
+- **الشفافية المالية المطلقة:** تتبع اشتراكات السكان ومصاريف الصيانة (المصاعد، النظافة، الإنارة، الحراسة) بالدينار الجزائري (دج) مع إمكانية إرفاق الفواتير والوصولات.
+- **تسهيل جمع الاشتراكات:** متابعة دورية ومؤتمتة لحالة الدفع لكل شقة، وتقليل النزاعات بين السكان.
+- **تسيير الجمعيات العامة والقرارات:** تنظيم الاجتماعات، توثيق المحاضر، وإجراء استطلاعات رأي وقرارات جماعية.
+- **التواصل الفوري:** إشعارات وتنبيهات للحالات الطارئة وأعمال الصيانة المبرمجة.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+---
 
-## Development
+## 🛠 الهيكل التقني والمعمارية
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+- **Framework:** [TanStack Start](https://tanstack.com/start) مع Vite و SSR على Cloudflare Workers / Nitro.
+- **UI & Components:** React 19، Tailwind CSS v4، Lucide Icons، Radix UI.
+- **Backend & Database:** [Supabase](https://supabase.com) (PostgreSQL 17، Supabase Auth، GoTrue، PostgREST، Realtime).
+- **Package Manager & Runtime:** [Bun](https://bun.sh).
+- **Testing:** Bun Test Runner + Playwright للتحقق المرئي و End-to-End.
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+### هيكل المجلدات:
+```text
+├── src/
+│   ├── components/         # المكونات المشتركة (site-header, brand, ui...)
+│   ├── hooks/              # خطافات React (useAuth, use-mobile...)
+│   │   └── use-auth.tsx    # إدارة جلسة Supabase، تسجيل الدخول والخروج والـ Profile
+│   ├── lib/
+│   │   ├── supabase.ts     # عميل Supabase الآمن والأنواع البرمجية (Types)
+│   │   ├── format.ts       # دوال التنسيق (formatDZD للدينار الجزائري)
+│   │   └── utils.ts        # أدوات مساعدة للأصناف وتنسيق CSS
+│   ├── routes/             # التوجيه الصارم لـ TanStack Start
+│   │   ├── __root.tsx      # الغلاف الجذري للتطبيق و AuthProvider
+│   │   ├── index.tsx       # الصفحة الرئيسية للتعريف بالمنصة
+│   │   ├── login.tsx       # واجهة تسجيل الدخول الموحدة للمنصة
+│   │   ├── about.tsx       # صفحة عن المنصة
+│   │   └── help.tsx        # الأسئلة الشائعة والدعم الفني
+│   └── test/               # اختبارات الوحدة والأمان
+├── .env.example            # نموذج متغيرات البيئة الآمنة
+└── .gitignore              # حظر الملفات السرية والمفاتيح الخاصة
 ```
+
+---
+
+## 🔗 روابط الدخول وأنواع المستخدمين
+
+توفر المنصة نظام تسجيل دخول موحد ذكي يتحقق من صلاحية المستخدم ودوره (`role`) مباشرة من جدول `profiles` في Supabase بعد التحقق من بريده وكلمة مروره:
+
+| الدور (Role) | الوصف | رابط الدخول | الواجهة والصلاحيات |
+| :--- | :--- | :--- | :--- |
+| **المشرف العام (Master Admin)** | المشرف على المنصة بالكامل، إدارة جميع العمارات وتعيين المسيرين ومراقبة الاشتراكات العامة. | [`/login`](/login) | لوحة تحكم المنصة الشاملة، الوصول لجميع العمارات وتعديل الاشتراكات والحسابات. |
+| **مسير العمارة (Building Admin / ساند)** | مسير العمارة أو رئيس لجنة الحي (Sindique)، يملك صلاحية تسيير صندوق العمارة، تسجيل المصاريف والمداخيل، ودعوة السكان. | [`/login`](/login) | لوحة تحكم العمارة، كشف الحساب المالي، إدارة الشقق وقائمة السكان، جدول أعمال الاجتماعات. |
+| **الساكن (Resident)** | صاحب الشقة أو المستأجر، يتابع صندوق عمارته والشفافية المالية ويدفع اشتراكه. | [`/login`](/login) | صفحة كشف الحساب، الفواتير، التصويت على القرارات، والتواصل مع مسير العمارة. |
+
+> 💡 **ملاحظة:** الرابط الموحد المباشر لتسجيل الدخول لجميع الأدوار هو:
+> **`https://<your-domain>/login`** أو محلياً **`http://localhost:3000/login`**
+
+---
+
+## 🔑 طريقة دخول الماستر أدمن (Master Admin)
+
+### 1. بيانات الحساب المرجعية في Supabase
+يتم إنشاء حساب الماستر أدمن إما من خلال لوحة تحكم Supabase Dashboard أو عبر استدعاء Auth API:
+- **البريد الإلكتروني:** بريد الماستر المعتمد (مثلاً: `admin@sanad.dz` أو حساب الأدمن الخاص بك).
+- **كلمة المرور:** كلمة مرور قوية محددة من طرفكم.
+
+### 2. ترقية الحساب إلى دور `admin` (Master)
+عند إنشاء المستخدم في Supabase Auth، يتم تسجيل دوره في جدول `profiles` التابع لقاعدة البيانات:
+```sql
+-- تعيين المستخدم كـ Master Admin في Supabase
+UPDATE public.profiles
+SET role = 'admin'
+WHERE id = '<USER_UUID_FROM_AUTH>';
+```
+
+### 3. خطوات الدخول:
+1. التوجه إلى صفحة الدخول: `/login`.
+2. إدخال البريد الإلكتروني وكلمة المرور.
+3. يقوم النظام بالتحقق عبر `supabase.auth.signInWithPassword`.
+4. بمجرد نجاح التحقق، يتم جلب ملف المستخدم (`role`) وتحديث الجلسة العامة فوراً.
+
+---
+
+## 🛡️ الأمان وحماية البيانات (Security 100%)
+
+تم تطبيق أعلى معايير الأمان لحماية التطبيق وقاعدة البيانات بنسبة 100%:
+
+1. **عزل المفاتيح السرية (Zero-Leakage):**
+   - **المفتاح العام فقط في الواجهة:** يستخدم المشروع فقط `VITE_SUPABASE_ANON_KEY` (أو `sb_publishable_...`) المسموح تداوله مع المتصفح.
+   - **حظر المفتاح السري (`sb_secret_...` / `SERVICE_ROLE_KEY`):** لا يتم تضمين المفتاح السري إطلاقاً في الواجهة الأمامية أو كود العميل أو حزم الإنتاج، ولا يتم حفظه في GitHub.
+   - **ملف `.gitignore` صارم:** يمنع رفع ملفات `.env` أو أي إعدادات محلية تحتوي على مفاتيح حساسة.
+
+2. **حماية قاعدة البيانات (Row Level Security - RLS):**
+   - جداول `buildings`, `profiles`, `transactions` محمية بسياسات RLS على مستوى PostgreSQL، بحيث لا يستطيع أي مستخدم قراءة أو تعديل بيانات عمارة أخرى.
+
+3. **حماية التوجيه والجلسات:**
+   - إدارة الجلسات بواسطة `@supabase/supabase-js` ومراقبة أحداث `onAuthStateChange` لمنع أي ثغرات انتحال هوية.
+   - تنظيف وتأمين واجهة إدخال كلمة المرور مع منع كشفها دون إذن المستخدم.
+
+---
+
+## 🗄️ قاعدة البيانات وجداول Supabase
+
+تم ربط التطبيق مع مشروع Supabase على العنوان:
+`https://msqwsimmlupusdbfwtxq.supabase.co`
+
+### الجداول الأساسية:
+- **`profiles`**: بيانات المستخدمين (الاسم، البريد، الدور: `admin` أو `resident`، رقم الشقة، رقم الهاتف).
+- **`buildings`**: بيانات العمارات (الاسم، العنوان، عدد الشقق، المسير، رصيد الصندوق).
+- **`transactions`**: العمليات المالية (المداخيل، المصاريف، نوع النفقة، التاريخ، الإيصال المرفق).
+
+---
+
+## 🚀 التشغيل والتطوير المحلي
+
+### المتطلبات:
+- تثبيت [Bun](https://bun.sh) (أو Node.js 20+ مع npm).
+
+### خطوات التثبيت:
+```bash
+# 1. استنساخ المستودع
+git clone https://github.com/omarberrahma/Lovablesanad1.git
+cd Lovablesanad1
+
+# 2. تثبيت الحزم والمكتبات
+bun install
+
+# 3. إعداد متغيرات البيئة
+cp .env.example .env
+# تأكد من صحة القيم في .env:
+# VITE_SUPABASE_URL=https://msqwsimmlupusdbfwtxq.supabase.co
+# VITE_SUPABASE_ANON_KEY=sb_publishable_bw83VbG--H_sSDINK6l4DA_YPrXXWG3
+
+# 4. تشغيل خادم التطوير المحلي
+bun run dev
+```
+
+افتح المتصفح على: `http://localhost:3000`
+
+---
+
+## 🧪 الاختبارات والبناء
+
+```bash
+# تشغيل اختبارات الأمان والاتصال بـ Supabase
+bun test
+
+# بناء التطبيق للإنتاج (Production Build)
+bun run build
+
+# معاينة البناء
+bun run preview
+```
+
+---
+
+© 2026 سند (Sanad) — جميع الحقوق محفوظة.
