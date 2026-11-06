@@ -14,4 +14,24 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
+
+  it("matches all core application pages without falling back to root or 404", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+
+    const coreRoutes = [
+      { path: "/", expectedId: "/" },
+      { path: "/about", expectedId: "/about" },
+      { path: "/help", expectedId: "/help" },
+      { path: "/login", expectedId: "/login" },
+      { path: "/admin", expectedId: "/admin" },
+    ];
+
+    for (const { path, expectedId } of coreRoutes) {
+      const matches = router.matchRoutes(path);
+      const matchedRoute = matches.at(-1);
+      expect(matchedRoute).toBeDefined();
+      expect(matchedRoute?.routeId).not.toBe(rootRouteId);
+      expect(matchedRoute?.routeId).toBe(expectedId);
+    }
+  });
 });
