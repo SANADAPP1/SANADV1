@@ -9,10 +9,11 @@ export const SUPABASE_ANON_KEY =
 export interface Profile {
   id: string;
   full_name: string;
-  email: string;
-  role: "master" | "admin" | "resident";
+  email?: string;
+  role: "master" | "admin" | "resident" | string;
   building_id?: string | null;
   apartment_number?: string | null;
+  phone?: string;
   created_at: string;
 }
 
@@ -21,6 +22,9 @@ export interface Building {
   name: string;
   address?: string | null;
   city?: string | null;
+  code?: string;
+  total_units?: number;
+  balance?: number;
   created_at: string;
 }
 
@@ -28,9 +32,12 @@ export interface Transaction {
   id: string;
   building_id: string;
   user_id?: string | null;
-  title: string;
+  title?: string;
+  description?: string;
   amount: number;
   type: "income" | "expense";
+  status?: "pending" | "approved" | "rejected";
+  category?: string;
   date: string;
   created_at: string;
 }
