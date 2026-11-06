@@ -241,47 +241,51 @@ function Index() {
 
 function HeroPreview() {
   return (
-    <div className="relative mx-auto w-full max-w-sm animate-rise [animation-delay:150ms]" aria-label="مثال توضيحي للوحة الساكن">
-      <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-secondary/70 blur-2xl" />
-      <div className="rounded-3xl border border-border bg-card p-5 pb-10 shadow-lift">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm font-medium text-muted-foreground">رصيد صندوق العمارة</p>
-            <p className="text-xs text-muted-foreground">عمارة الياسمين 14 — وهران</p>
+    <div className="relative mx-auto w-full max-w-md animate-rise [animation-delay:150ms]" aria-label="مثال توضيحي للوحة الساكن">
+      <div className="absolute -inset-4 -z-10 rounded-[2.5rem] bg-secondary/70 blur-2xl" />
+      <div className="space-y-4">
+        {/* Main balance card */}
+        <div className="rounded-3xl border border-border bg-card p-6 shadow-lift transition-all">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">رصيد صندوق العمارة</p>
+              <p className="text-xs font-normal text-muted-foreground">عمارة الياسمين 14 — وهران</p>
+            </div>
+            <BrandIcon name="fund" className="size-11" />
           </div>
-          <BrandIcon name="fund" className="size-11" />
-        </div>
-        <p className="num mt-4 text-end text-4xl font-bold text-forest" dir="ltr">
-          {(124500).toLocaleString("en-US")}
-          <span className="ms-1.5 text-lg font-semibold">DZD</span>
-        </p>
-        <div className="mt-4 grid grid-cols-2 gap-2">
-          <div className="rounded-xl bg-success-soft p-3">
-            <p className="text-xs text-muted-foreground">المداخيل</p>
-            <p className="num text-sm font-semibold text-forest">+ {formatDZD(180000)}</p>
+          <p className="num mt-4 text-end text-4xl font-bold text-forest" dir="ltr">
+            {(124500).toLocaleString("en-US")}
+            <span className="ms-1.5 text-lg font-semibold">DZD</span>
+          </p>
+          <div className="mt-5 grid grid-cols-2 gap-2.5">
+            <div className="rounded-xl bg-success-soft p-3">
+              <p className="text-xs text-muted-foreground">المداخيل</p>
+              <p className="num text-sm font-semibold text-forest">+ {formatDZD(180000)}</p>
+            </div>
+            <div className="rounded-xl bg-expense-soft p-3">
+              <p className="text-xs text-muted-foreground">المصاريف</p>
+              <p className="num text-sm font-semibold text-expense">− {formatDZD(55500)}</p>
+            </div>
           </div>
-          <div className="rounded-xl bg-expense-soft p-3">
-            <p className="text-xs text-muted-foreground">المصاريف</p>
-            <p className="num text-sm font-semibold text-expense">− {formatDZD(55500)}</p>
+          <div className="mt-5 space-y-2.5 border-t border-border pt-4">
+            <Row title="مساهمة دورية" sub="اشتراك دوري · 05 نوفمبر" amount="+ 3,500 دج" positive />
+            <Row title="تصليح قفل الباب الرئيسي" sub="قفل · 02 نوفمبر" amount="− 4,200 دج" />
           </div>
         </div>
-        <div className="mt-4 space-y-2 border-t border-border pt-4">
-          <Row title="مساهمة دورية" sub="اشتراك دوري · 05 نوفمبر" amount="+ 3,500 دج" positive />
-          <Row title="تصليح قفل الباب الرئيسي" sub="قفل · 02 نوفمبر" amount="− 4,200 دج" />
-        </div>
-      </div>
 
-      <div className="relative -mt-6 me-[-1rem] ms-10 rounded-2xl border border-border bg-card p-4 shadow-card md:me-[-2.5rem]">
-        <div className="flex items-start gap-3">
-          <BrandIcon name="events" className="size-10" />
-          <div className="min-w-0 flex-1">
-            <p className="text-sm font-semibold text-forest">اجتماع سكان العمارة</p>
-            <p className="text-xs text-muted-foreground">الأحد 10 نوفمبر · <span className="num">20:00</span> · مدخل العمارة</p>
+        {/* Meeting card - cleanly stacked without overlapping/collision */}
+        <div className="rounded-2xl border border-border bg-card/95 p-4 shadow-card backdrop-blur-sm">
+          <div className="flex items-start gap-3">
+            <BrandIcon name="events" className="size-10" />
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-semibold text-forest">اجتماع سكان العمارة</p>
+              <p className="text-xs text-muted-foreground">الأحد 10 نوفمبر · <span className="num">20:00</span> · مدخل العمارة</p>
+            </div>
           </div>
-        </div>
-        <div className="mt-3 grid grid-cols-2 gap-2">
-          <span className="rounded-lg bg-forest py-2 text-center text-xs font-semibold text-on-dark">سأحضر</span>
-          <span className="rounded-lg border border-border py-2 text-center text-xs font-medium text-muted-foreground">لن أحضر</span>
+          <div className="mt-3.5 grid grid-cols-2 gap-2">
+            <span className="rounded-lg bg-forest py-2 text-center text-xs font-semibold text-on-dark shadow-sm">سأحضر</span>
+            <span className="rounded-lg border border-border bg-background py-2 text-center text-xs font-medium text-muted-foreground hover:bg-muted/50">لن أحضر</span>
+          </div>
         </div>
       </div>
       <p className="mt-3 text-center text-[11px] text-muted-foreground">مثال توضيحي</p>
