@@ -1,0 +1,205 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Sanad design system — "The Warm Neighborhood".
+ * All colors are oklch tokens derived from the approved brand board.
+ */
+
+@theme inline {
+  --font-sans: "IBM Plex Sans Arabic", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-latin: "Plus Jakarta Sans", "IBM Plex Sans Arabic", system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  /* Sanad brand + semantic states */
+  --color-forest: var(--forest);
+  --color-obsidian: var(--obsidian);
+  --color-teal: var(--teal);
+  --color-terracotta: var(--terracotta);
+  --color-clay-light: var(--clay-light);
+  --color-clay-deep: var(--clay-deep);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-pending: var(--pending);
+  --color-pending-soft: var(--pending-soft);
+  --color-expense: var(--expense);
+  --color-expense-soft: var(--expense-soft);
+  --color-on-dark: var(--on-dark);
+  --color-on-dark-muted: var(--on-dark-muted);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-lift: var(--shadow-lift);
+}
+
+:root {
+  --radius: 0.875rem;
+
+  --forest: oklch(0.317 0.056 169.1);
+  --obsidian: oklch(0.231 0.039 169.1);
+  --teal: oklch(0.698 0.135 169.6);
+  --terracotta: oklch(0.688 0.133 35.8);
+  --clay-light: oklch(0.691 0.12 44.5);
+  --clay-deep: oklch(0.616 0.135 37.5);
+
+  --background: oklch(0.98 0.002 165.1);
+  --foreground: var(--forest);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--forest);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--forest);
+  --primary: var(--forest);
+  --primary-foreground: oklch(0.99 0.003 165);
+  --secondary: oklch(0.964 0.02 177.5);
+  --secondary-foreground: var(--forest);
+  --muted: oklch(0.955 0.006 165);
+  --muted-foreground: oklch(0.513 0.021 165.7);
+  --accent: oklch(0.964 0.015 37.9);
+  --accent-foreground: var(--clay-deep);
+  --destructive: oklch(0.587 0.198 25.2);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.926 0.008 164.9);
+  --input: oklch(0.926 0.008 164.9);
+  --ring: var(--teal);
+
+  --success: var(--teal);
+  --success-soft: oklch(0.964 0.02 177.5);
+  --pending: var(--clay-deep);
+  --pending-soft: oklch(0.964 0.015 37.9);
+  --expense: oklch(0.587 0.198 25.2);
+  --expense-soft: oklch(0.957 0.018 17.5);
+  --on-dark: oklch(0.99 0.003 165);
+  --on-dark-muted: oklch(0.82 0.04 169);
+
+  --shadow-card: 0 1px 2px oklch(0.317 0.056 169.1 / 0.04), 0 8px 24px -12px oklch(0.317 0.056 169.1 / 0.14);
+  --shadow-lift: 0 2px 4px oklch(0.317 0.056 169.1 / 0.06), 0 24px 48px -20px oklch(0.317 0.056 169.1 / 0.28);
+
+  --chart-1: var(--teal);
+  --chart-2: var(--terracotta);
+  --chart-3: var(--forest);
+  --chart-4: var(--clay-light);
+  --chart-5: var(--clay-deep);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: var(--forest);
+  --sidebar-primary: var(--forest);
+  --sidebar-primary-foreground: oklch(0.99 0.003 165);
+  --sidebar-accent: oklch(0.964 0.02 177.5);
+  --sidebar-accent-foreground: var(--forest);
+  --sidebar-border: oklch(0.926 0.008 164.9);
+  --sidebar-ring: var(--teal);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Latin figures for amounts, codes and the Latin brand name */
+@utility num {
+  font-family: var(--font-latin);
+  font-variant-numeric: tabular-nums;
+  unicode-bidi: isolate;
+}
+
+/* Soft architectural "window grid" backdrop used behind heroes */
+@utility window-grid {
+  background-image:
+    linear-gradient(to right, oklch(0.317 0.056 169.1 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.317 0.056 169.1 / 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+@utility window-grid-dark {
+  background-image:
+    linear-gradient(to right, oklch(1 0 0 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(1 0 0 / 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+@utility surface-dark {
+  background-color: var(--obsidian);
+  background-image: radial-gradient(
+    120% 80% at 100% 0%,
+    oklch(0.317 0.056 169.1) 0%,
+    var(--obsidian) 70%
+  );
+  color: var(--on-dark);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-rise {
+  animation: rise-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
