@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { LogOut, Menu, UserCheck } from "lucide-react";
+import { LogOut, Menu, ShieldCheck, UserCheck } from "lucide-react";
 import { useState } from "react";
 
 import { useAuth } from "@/hooks/use-auth";
@@ -9,6 +9,7 @@ import { SanadMark, SanadWordmark } from "./brand";
 
 const NAV = [
   { to: "/", label: "الرئيسية" },
+  { to: "/admin", label: "لوحة التحكم (Master)" },
   { to: "/about", label: "عن المنصة" },
   { to: "/help", label: "المساعدة" },
 ] as const;
@@ -41,10 +42,12 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           {session && user ? (
             <div className="flex items-center gap-2">
-              <span className="hidden items-center gap-1.5 rounded-full bg-success-soft px-3 py-1 text-xs font-semibold text-forest sm:inline-flex">
-                <UserCheck className="size-3.5 text-teal" />
-                <span className="max-w-[120px] truncate" dir="ltr">{user.email}</span>
-              </span>
+              <Button asChild size="sm" variant="default" className="h-9 gap-1.5 px-3 bg-forest text-sand">
+                <Link to="/admin">
+                  <ShieldCheck className="size-4" />
+                  <span className="hidden sm:inline">لوحة الإدارة</span>
+                </Link>
+              </Button>
               <Button
                 variant="outline"
                 size="sm"
