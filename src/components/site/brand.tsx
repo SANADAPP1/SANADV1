@@ -12,13 +12,28 @@ export function SanadMark({
   className?: string;
 }) {
   return (
-    <img
-      src={variant === "dark" ? iconDark.url : iconLight.url}
-      alt="شعار سند"
-      width={40}
-      height={40}
-      className={cn("size-10 rounded-xl object-cover", className)}
-    />
+    <div
+      className={cn(
+        "grid size-10 place-items-center rounded-xl bg-forest text-on-dark font-bold shadow-sm",
+        variant === "dark" && "bg-background text-forest",
+        className,
+      )}
+      aria-label="شعار سند"
+    >
+      <img
+        src={variant === "dark" ? iconDark.url : iconLight.url}
+        alt="شعار سند"
+        width={40}
+        height={40}
+        onError={(e) => {
+          (e.currentTarget as HTMLElement).style.display = "none";
+        }}
+        className="size-full rounded-xl object-cover"
+      />
+      <span className="hidden select-none font-bold text-xs" aria-hidden="true">
+        سند
+      </span>
+    </div>
   );
 }
 

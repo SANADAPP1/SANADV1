@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { Menu } from "lucide-react";
+import { LogOut, Menu, UserCheck } from "lucide-react";
 import { useState } from "react";
 
+import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { SanadMark, SanadWordmark } from "./brand";
@@ -14,6 +15,8 @@ const NAV = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const { session, user, signOut } = useAuth();
+
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
@@ -36,9 +39,29 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button asChild size="sm" className="h-9 px-4">
-            <Link to="/login">الدخول</Link>
-          </Button>
+          {session && user ? (
+            <div className="flex items-center gap-2">
+              <span className="hidden items-center gap-1.5 rounded-full bg-success-soft px-3 py-1 text-xs font-semibold text-forest sm:inline-flex">
+                <UserCheck className="size-3.5 text-teal" />
+                <span className="max-w-[120px] truncate" dir="ltr">{user.email}</span>
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => signOut()}
+                className="h-9 gap-1.5 px-3"
+                title="تسجيل الخروج"
+              >
+                <LogOut className="size-4" />
+                <span className="hidden sm:inline">خروج</span>
+              </Button>
+            </div>
+          ) : (
+            <Button asChild size="sm" className="h-9 px-4">
+              <Link to="/login">الدخول</Link>
+            </Button>
+          )}
+
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden" aria-label="القائمة">
