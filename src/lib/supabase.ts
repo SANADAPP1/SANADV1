@@ -10,7 +10,7 @@ export interface Profile {
   id: string;
   full_name: string;
   email?: string;
-  role: "master" | "admin" | "resident" | string;
+  role?: "master" | "admin" | "resident" | string;
   building_id?: string | null;
   apartment_number?: string | null;
   phone?: string;
@@ -25,7 +25,19 @@ export interface Building {
   code?: string;
   total_units?: number;
   balance?: number;
+  manager_email?: string;
+  manager_name?: string;
   created_at: string;
+}
+
+export interface Invite {
+  id: string;
+  code: string;
+  building_id: string;
+  role: "admin" | "resident" | string;
+  created_at: string;
+  used_at?: string | null;
+  created_by?: string | null;
 }
 
 export interface Transaction {
